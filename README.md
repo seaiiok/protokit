@@ -17,7 +17,7 @@ package main
 import (
     "github.com/golang/protobuf/proto"
     "github.com/golang/protobuf/protoc-gen-go/plugin"
-    "github.com/pseudomuto/protokit"
+    "github.com/seaiiok/protokit"
     _ "google.golang.org/genproto/googleapis/api/annotations" // Support (google.api.http) option (from google/api/annotations.proto).
 
     "log"
@@ -58,14 +58,14 @@ Then invoke your plugin via `protoc`. For example (assuming your app is called `
 `protoc --plugin=protoc-gen-thingy=./thingy -I. --thingy_out=. rpc/*.proto`
 
 [travis-svg]:
-  https://travis-ci.org/pseudomuto/protokit.svg?branch=master
+  https://travis-ci.org/seaiiok/protokit.svg?branch=master
 	"Travis CI build status SVG"
 [travis-ci]:
-  https://travis-ci.org/pseudomuto/protokit
+  https://travis-ci.org/seaiiok/protokit
   "protoc-gen-twagger at Travis CI"
-[codecov-svg]: https://codecov.io/gh/pseudomuto/protokit/branch/master/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/pseudomuto/protokit
-[godoc-svg]: https://godoc.org/github.com/pseudomuto/protokit?status.svg
-[godoc-url]: https://godoc.org/github.com/pseudomuto/protokit
-[goreport-svg]: https://goreportcard.com/badge/github.com/pseudomuto/protokit
-[goreport-url]: https://goreportcard.com/report/github.com/pseudomuto/protokit
+[codecov-svg]: https://codecov.io/gh/seaiiok/protokit/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/seaiiok/protokit
+[godoc-svg]: https://godoc.org/github.com/seaiiok/protokit?status.svg
+[godoc-url]: https://godoc.org/github.com/seaiiok/protokit
+[goreport-svg]: https://goreportcard.com/badge/github.com/seaiiok/protokit
+[goreport-url]: https://goreportcard.com/report/github.com/seaiiok/protokit

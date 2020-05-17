@@ -2,7 +2,7 @@ package protokit
 
 import (
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
-	"github.com/golang/protobuf/protoc-gen-go/plugin"
+	plugin_go "github.com/golang/protobuf/protoc-gen-go/plugin"
 
 	"context"
 	"fmt"
@@ -37,7 +37,31 @@ const (
 // For example, given the following invocation, only booking.proto will be returned even if it imports other protos:
 //
 //     protoc --plugin=protoc-gen-test=./test -I. protos/booking.proto
+//TODO ALL
 func ParseCodeGenRequest(req *plugin_go.CodeGeneratorRequest) []*FileDescriptor {
+	allFiles := make(map[string]*FileDescriptor)
+	genFiles := make([]*FileDescriptor, len(req.GetProtoFile()))
+
+	for _, pf := range req.GetProtoFile() {
+		allFiles[pf.GetName()] = parseFile(context.Background(), pf)
+	}
+
+	for i, f := range req.GetProtoFile() {
+		genFiles[i] = allFiles[f.GetName()]
+		parseImports(genFiles[i], allFiles)
+	}
+
+	return genFiles
+}
+
+// ParseCodeGenRequest parses the given request into `FileDescriptor` objects. Only the `req.FilesToGenerate` will be
+// returned.
+//
+// For example, given the following invocation, only booking.proto will be returned even if it imports other protos:
+//
+//     protoc --plugin=protoc-gen-test=./test -I. protos/booking.proto
+// TODO TOP
+func ParseCodeGenRequest_Top(req *plugin_go.CodeGeneratorRequest) []*FileDescriptor {
 	allFiles := make(map[string]*FileDescriptor)
 	genFiles := make([]*FileDescriptor, len(req.GetFileToGenerate()))
 
@@ -117,10 +141,10 @@ func parseEnumValues(ctx context.Context, protos []*descriptor.EnumValueDescript
 		longName := fmt.Sprintf("%s.%s", enum.GetLongName(), vd.GetName())
 
 		values[i] = &EnumValueDescriptor{
-			common: newCommon(file, "", longName),
+			common:                   newCommon(file, "", longName),
 			EnumValueDescriptorProto: vd,
-			Enum:     enum,
-			Comments: file.comments.Get(fmt.Sprintf("%s.%d.%d", enum.path, enumValueCommentPath, i)),
+			Enum:                     enum,
+			Comments:                 file.comments.Get(fmt.Sprintf("%s.%d.%d", enum.path, enumValueCommentPath, i)),
 		}
 		if vd.Options != nil {
 			values[i].setOptions(vd.Options)

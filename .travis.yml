@@ -12,8 +12,8 @@ go:
 
 cache:
   - "${HOME}/protoc"
-  - "${GOPATH}/src/github.com/pseudomuto/protokit/_tools"
-  - "${GOPATH}/src/github.com/pseudomuto/protokit/vendor"
+  - "${GOPATH}/src/github.com/seaiiok/protokit/_tools"
+  - "${GOPATH}/src/github.com/seaiiok/protokit/vendor"
 
 install:
   - if [ ! -d "${PROTOC_TARGET}" ]; then curl -fsSL "${PROTOC_RELEASE}" > "${PROTOC_TARGET}.zip"; fi
